@@ -1,12 +1,14 @@
-import { one } from "./images/1.js";
-import { two } from "./images/2.js";
-import { three } from "./images/3.js";
-import { four } from "./images/4.js";
-import { five } from "./images/5.js";
-import { six } from "./images/6.js";
-import { seven } from "./images/7.js";
-import { eight } from "./images/8.js";
-import { nine } from "./images/9.js";
+import { one } from "./images/collections/faces/index.js";
+
+const mapImageInitialPosition = (image, index, canvas) => {
+  let positionX = 0;
+  if (index === 0) {
+    positionX = canvas.width - image.width / 2;
+  } else {
+    positionX = canvas.width - image.width / 2 + 600 * index * 2;
+  }
+  return positionX;
+};
 
 function NewCanvas() {
   const c = document.querySelector("canvas");
@@ -20,60 +22,29 @@ function NewCanvas() {
 
 function ClearCvs(cvs) {
   cvs.ctx.fillRect(0, 0, cvs.width, cvs.height);
-  cvs.ctx.fillStyle = "red";
+  cvs.ctx.fillStyle = "white";
 }
 
 const canvas = NewCanvas();
 
-let User = { x: 0, y: 0 };
+let User = { x: 0, imageInViewport: 0 };
 
-const images = [
-  ...one,
-  ...two,
-  ...three,
-  ...four,
-  ...five,
-  ...six,
-  ...seven,
-  ...eight,
-  ...nine,
-];
-
-var imagesOK = 0;
-var imgs = [];
+const images = [...one];
+let imagesOK = 0;
+const imgs = [];
 loadAllImages(start);
 
 window.addEventListener(
   "wheel",
   (e) => {
-    const isScrollingUp = e.wheelDeltaY < 0;
-    const isScrollingDown = e.wheelDeltaY > 0;
-    const isScrollingRight = e.wheelDeltaX < 0;
-    const isScrollingLeft = e.wheelDeltaX > 0;
-    const canvasPaddingY = window.innerHeight / 4;
-    const canvasPaddingX = 200;
-
-    const hasReachedTopOfCanvas =
-      User.y > window.innerHeight + canvasPaddingY && isScrollingUp;
-    const hasReachedBottomOfCanvas =
-      User.y < -window.innerHeight + -canvasPaddingY && isScrollingDown;
-    const hasReachedRightEdgeOfCanvas =
-      User.x > window.innerWidth + canvasPaddingX && isScrollingRight;
-    const hasReachedLeftEdgeOfCanvas =
-      User.x < -window.innerWidth + -canvasPaddingX && isScrollingLeft;
-
-    if (
-      hasReachedTopOfCanvas ||
-      hasReachedBottomOfCanvas ||
-      hasReachedRightEdgeOfCanvas ||
-      hasReachedLeftEdgeOfCanvas
-    ) {
-      return;
-    } else {
-      User.x += parseInt(e.deltaX, 10);
-      User.y += parseInt(e.deltaY, 10);
+    const isScrollingForward = e.wheelDeltaY < 0;
+    if (-User.x <= canvas.width - 486 / 2) {
+      User.imageInViewport = 0
     }
 
+    if ((-User.x >= 4500 && -User.x <= 6000 && isScrollingForward)) return
+    if ((-User.x <= 0 && -User.x >= -1000 && !isScrollingForward)) return
+    User.x -= e.deltaY;
     ClearCvs(canvas);
     start();
   },
@@ -99,12 +70,15 @@ function loadAllImages(callback) {
 
 function start() {
   for (var i = 0; i < images.length; i++) {
-    canvas.ctx.drawImage(
+    const { ctx } = canvas;
+    const x = mapImageInitialPosition(images[i], i, canvas);
+
+    ctx.drawImage(
       imgs[i],
-      ((User.x + images[i].offsetX) * images[i].parallex) / 2,
-      ((User.y + images[i].offsetY) * images[i].parallex) / 2,
-      200,
-      250
+      User.x + x,
+      (canvas.height - images[i].height) / 2,
+      images[i].width,
+      images[i].height
     );
   }
 }
