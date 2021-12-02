@@ -509,7 +509,8 @@ const observer = new IntersectionObserver((entries)=>{
         if (entry.isIntersecting) {
             const index = parseInt(entry.target.classList[0], 10);
             title.innerHTML = sidebarContent[index - 1].title;
-            content.innerHTML = sidebarContent[index - 1].description;
+            const isDesktop = window.matchMedia("only screen and (min-width: 768px)").matches;
+            if (isDesktop) content.innerHTML = sidebarContent[index - 1].description;
             number.innerHTML = `${index} / ${sidebarContent.length}`;
         }
     });
@@ -522,13 +523,16 @@ document.querySelectorAll(".image").forEach((img)=>{
     observer.observe(img);
 });
 const element = document.querySelector("#horizontal-container");
+const images = document.querySelectorAll(".image");
 element.addEventListener('wheel', (event)=>{
     event.preventDefault();
     const both = event.deltaY + event.deltaX;
     element.scrollBy({
         left: both
     });
-});
+}); // width (411 is width of viewport) 
+ // * 10 (10 images)
+ // / 100 * 85 (each image is 85% of viewport)
 
 },{}]},["1bEO8","lzYRN"], "lzYRN", "parcelRequirebd9c")
 
