@@ -83,25 +83,49 @@ const sidebarContent = [
 ];
 
 const productPage = document.querySelector(".product-page");
-const closeButton = document.querySelector(".close-button");
+const aboutPage = document.querySelector(".about-page");
+const aboutMenu = document.querySelector(".about-menu");
+const closeButtonProduct = document.querySelector(".close-button-product");
+const closeButtonAbout = document.querySelector(".close-button-about");
 const nftTitle = document.querySelector(".nft-title");
 const nftPrice = document.querySelector(".nft-price");
 const nftDescription = document.querySelector(".nft-description");
-// const nftImage = document.querySelector(".nft-image");
+const nftImage = document.querySelector(".nft-image");
 
-page('/about/:*', function(ctx){
+aboutMenu.addEventListener('click', (e) => {
+  e.preventDefault()
+  console.log('clocked')
+  page('/about')
+})
+
+page('/about', function(){
+  aboutPage.style.bottom = 0
+});
+
+page('/', () => {
+  productPage.style.bottom = '-100vh'
+})
+
+page('/details/:*', function(ctx){
     const title = ctx.params[0]
 
     const data = sidebarContent.filter((nft) => nft.title === title)[0]
     console.log('data', data)
     productPage.style.bottom = 0
     nftTitle.innerHTML = data.title
-    nftPrice.innerHTML = data.price
+    nftPrice.innerHTML = `Price: ${data.price} ETH`
     nftDescription.innerHTML = data.description
-    // nftImage.src = data.image
+    // nftImage.src = `../${data.image}`
 });
 
-closeButton.addEventListener('click', (e) => {
+
+closeButtonProduct.addEventListener('click', (e) => {
+    e.preventDefault()
+    console.log('clicked')
+    page(`/`)
+})
+
+closeButtonAbout.addEventListener('click', (e) => {
     e.preventDefault()
     console.log('clicked')
     page(`/`)

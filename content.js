@@ -95,7 +95,7 @@ const observer = new IntersectionObserver(
 
         more.addEventListener('click', (e) => {
             e.preventDefault()
-            page(`/about/:${sidebarContent[index - 1].title}`)
+            page(`/details/:${sidebarContent[index - 1].title}`)
         })
       }
     });
