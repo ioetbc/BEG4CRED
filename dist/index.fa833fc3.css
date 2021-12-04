@@ -1,17 +1,24 @@
 :root {
   --topNavHeight: 40px;
-  --fontSizeHeading: 22px;
+  --fontSizeHeading: 19px;
   --fontSizePara: 12px;
   --lineHeightPara: 24px;
   --marginMedium: 24px;
   --marginLarge: 32px;
+  --vh: 0px;
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+  background:black;
 }
 
 @media screen and (min-width: 768px) {
   :root {
     --topNavHeight: 100px;
-    --fontSizeHeading: 54px;
-    --fontSizePara: 18px;
+    --fontSizeHeading: 48px;
+    --fontSizePara: 16px;
     --marginMedium: 32px;
     --marginLarge: 48px;
   }
@@ -19,8 +26,7 @@
 
 h1 {
   margin: 0;
-  font-family: "DM Sans", helvetica, arial, sans-serif;
-  font-size: var(--fontSizeHeading);
+  /* font-family: 'Montserrat', sans-serif; */
 }
 
 p,
@@ -28,33 +34,48 @@ li,
 a {
   font-size: var(--fontSizePara);
   line-height: var(--lineHeightPara);
-  font-family: "DM Sans", helvetica, arial, sans-serif;
 }
 
 .link {
   font-size: var(--fontSizePara);;
   color: black;
-  text-decoration: none;
   text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+}
+
+.link:after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: blue;
 }
 
 #horizontal-container {
   display: flex;
   align-items: center;
   overflow-x: scroll;
-  overflow-y: hidden;
-  width: 100vw;
-  height: 100vh;
-  background: purple;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  /* width: 100vw; */
+  /* height: 100%; */
+  /* background: red; */
+  /* margin-top: 24px; */
+}
+
+.horizontal-wrapper {
+  display: flex;
+  max-width: 75vw;
 }
 
 .site-wrapper {
-  height: 100vh;
-  background: blue;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow-y: hidden;
+  height: 100%;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: space-between; */
 }
 
 @media screen and (min-width: 768px) {
@@ -69,12 +90,18 @@ a {
 }
 
 #horizontal-container img {
-  width: 80%;
-  margin-right: 10%;
+  /* width: 75vw; */
+  /* height: 400px; */
+  margin-right: 33vw;
+  /* max-width: calc(100vw - 40px); */
 }
 
 #horizontal-container img:nth-child(1) {
-  margin-left: 5%;
+  margin-left: 50vw;
+}
+
+#horizontal-container img:last-of-type {
+  margin-right: 50vw;
 }
 
 @media screen and (min-width: 768px) {
@@ -95,6 +122,51 @@ a {
 
 
 /* NAV STYLES */
+.text-logo {
+  color: white;
+  font-size: 19px;
+  letter-spacing: 2px;
+  line-height: 20px;
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  transform-origin: left top;
+  transform: rotate(-90deg) translateX(-100%);
+}
+.bottom-logo {
+  font-size: 18px;
+}
+
+.menu-links {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+.menu-link {
+  font-size: 14px;
+  color: white;
+}
+/* .menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+} */
+.insta {
+  letter-spacing: 2px;
+}
+.email {
+  letter-spacing: 0.5px;
+}
+.logo {
+  width: 100px;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  transform-origin: left top;
+  transform: rotate(-90deg) translateX(-100%);
+}
 .top-nav {
   list-style: none;
   padding: 0 var(--marginLarge);
@@ -104,7 +176,7 @@ a {
   align-items: center;
   height: var(--topNavHeight);
   margin-left: auto;
-  background: red;
+  /* background: red; */
   position: absolute;
 }
 
@@ -122,51 +194,107 @@ a {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 /* SIDEBAR STYLES */
 
-
 .sidebar {
-  background: green;
+  /* border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black; */
+  color: white;
+  /* background: black; */
+  /* color: whitesmoke; */
   position: absolute;
-  width: 80%;
-  bottom: 5%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  border-top: 1px solid black;
-  z-index: 1;
-  padding: 30px;
-  overflow-y: scroll;
-}
-
-.sidebar-title {
-  text-align: center;
-}
-
-.sidebar-content-wrapper {
-  margin-top: 16px;
-  display: flex;
   width: 100%;
-  background: red;
+  bottom: 0;
+  text-rendering:geometricPrecision;
+  padding: 16px;
+  /* left: 0; */
+  /* right: 16px; */
+  /* margin: 0 auto; */
+  z-index: 1;
+  /* overflow-y: scroll; */
+}
+
+.sidedar-container {
+  display: flex;
   justify-content: space-between;
 }
 
+.sidebar-title {
+  font-size: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  color: white;
+}
+
+.sidebar-price {
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.sidebar-buy {
+  color: white;
+  font-size: 15px;
+  text-align: right;
+  letter-spacing: 1px;
+}
+
+.sidebar-more {
+  font-size: 15px;
+  text-align: right;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.sidebar-price.price {
+  /* letter-spacing: 2px; */
+}
+
+.sidebar-content-wrapper {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  /* margin-top: 16px; */
+  /* display: flex; */
+  /* width: 100%; */
+  /* justify-content: space-between; */
+}
+
+.nft-info {
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+/* .sidebar-button-wrapper {
+  display: flex;
+  align-items: end;
+} */
 
 .sidebar-index {
-  display: none;
+  /* display: none; */
+  font-size: 15px;
+  text-align: right;
+}
+
+.sidebar-wrapper {
+    /* margin-top: 16px;
+    /* margin-bottom: 16px; */
+}
+
+.sidebar-info-wrapper {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
 }
 
 @media screen and (min-width: 768px) {
+  .logo {
+    width: 175px;
+    right: 60px;
+    left: auto;
+    top: 60px;
+  }
   .project-container {
     margin-left: calc(33vw + 60vh);
   }
@@ -205,4 +333,14 @@ a {
   }
 }
 
+
+
+.product-page {
+  background: red;
+  height: 80vh;
+  position: absolute;
+  bottom: -100vh;
+  width: 100%;
+  transition: bottom 1s ease-in-out;
+}
 /*# sourceMappingURL=index.fa833fc3.css.map */

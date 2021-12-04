@@ -1,15 +1,17 @@
 :root {
   --topNavHeight: 40px;
-  --fontSizeHeading: 22px;
+  --fontSizeHeading: 19px;
   --fontSizePara: 12px;
   --lineHeightPara: 24px;
   --marginMedium: 24px;
   --marginLarge: 32px;
+  --vh: 0px;
 }
 
 html, body {
   overflow: hidden;
-  background: black;
+  height: 100%;
+  background:black;
 }
 
 @media screen and (min-width: 768px) {
@@ -32,7 +34,6 @@ li,
 a {
   font-size: var(--fontSizePara);
   line-height: var(--lineHeightPara);
-  font-family: 'Montserrat', sans-serif;
 }
 
 .link {
@@ -57,15 +58,24 @@ a {
   display: flex;
   align-items: center;
   overflow-x: scroll;
-  width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  /* width: 100vw; */
+  /* height: 100%; */
+  /* background: red; */
+  /* margin-top: 24px; */
+}
+
+.horizontal-wrapper {
+  display: flex;
+  max-width: 75vw;
 }
 
 .site-wrapper {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 100%;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: space-between; */
 }
 
 @media screen and (min-width: 768px) {
@@ -80,12 +90,18 @@ a {
 }
 
 #horizontal-container img {
-  width: 75vw;
-  margin-right: 10%;
+  /* width: 75vw; */
+  /* height: 400px; */
+  margin-right: 33vw;
+  /* max-width: calc(100vw - 40px); */
 }
 
 #horizontal-container img:nth-child(1) {
-  margin-left: 5%;
+  margin-left: 50vw;
+}
+
+#horizontal-container img:last-of-type {
+  margin-right: 50vw;
 }
 
 @media screen and (min-width: 768px) {
@@ -108,12 +124,40 @@ a {
 /* NAV STYLES */
 .text-logo {
   color: white;
-  font-size: 20px;
+  font-size: 19px;
+  letter-spacing: 2px;
+  line-height: 20px;
   position: absolute;
-  top: 16px;
   left: 16px;
+  top: 16px;
   transform-origin: left top;
   transform: rotate(-90deg) translateX(-100%);
+}
+.bottom-logo {
+  font-size: 18px;
+}
+
+.menu-links {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+.menu-link {
+  font-size: 14px;
+  color: white;
+}
+/* .menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+} */
+.insta {
+  letter-spacing: 2px;
+}
+.email {
+  letter-spacing: 0.5px;
 }
 .logo {
   width: 100px;
@@ -153,32 +197,68 @@ a {
 /* SIDEBAR STYLES */
 
 .sidebar {
-  border-top: 1px solid white;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
+  /* border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black; */
   color: white;
   /* background: black; */
-  /* border-radius: 4px; */
+  /* color: whitesmoke; */
   position: absolute;
-  width: 80%;
+  width: 100%;
   bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  z-index: 1;
+  text-rendering:geometricPrecision;
   padding: 16px;
-  overflow-y: scroll;
+  /* left: 0; */
+  /* right: 16px; */
+  /* margin: 0 auto; */
+  z-index: 1;
+  /* overflow-y: scroll; */
+}
+
+.sidedar-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .sidebar-title {
-  text-align: center;
+  font-size: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  color: white;
+}
+
+.sidebar-price {
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.sidebar-buy {
+  color: white;
+  font-size: 15px;
+  text-align: right;
+  letter-spacing: 1px;
+}
+
+.sidebar-more {
+  font-size: 15px;
+  text-align: right;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.sidebar-price.price {
+  /* letter-spacing: 2px; */
 }
 
 .sidebar-content-wrapper {
-  margin-top: 16px;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  /* margin-top: 16px; */
+  /* display: flex; */
+  /* width: 100%; */
+  /* justify-content: space-between; */
 }
 
 .nft-info {
@@ -192,7 +272,20 @@ a {
 } */
 
 .sidebar-index {
-  display: none;
+  /* display: none; */
+  font-size: 15px;
+  text-align: right;
+}
+
+.sidebar-wrapper {
+    /* margin-top: 16px;
+    /* margin-bottom: 16px; */
+}
+
+.sidebar-info-wrapper {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
 }
 
 @media screen and (min-width: 768px) {
@@ -238,4 +331,15 @@ a {
     bottom: 50px;
     right: 60px;
   }
+}
+
+
+
+.product-page {
+  background: red;
+  height: 80vh;
+  position: absolute;
+  bottom: -100vh;
+  width: 100%;
+  transition: bottom 1s ease-in-out;
 }

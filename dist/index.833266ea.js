@@ -460,63 +460,89 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"lzYRN":[function(require,module,exports) {
 const title = document.querySelector(".sidebar-title");
+const priceElement = document.querySelector(".sidebar-price");
 const content = document.querySelector(".sidebar-content");
-const number = document.querySelector(".sidebar-index");
+const buy = document.querySelector(".sidebar-buy");
+// const number = document.querySelector(".sidebar-index");
 const sidebarContent = [
     {
-        title: "First NFT",
-        description: "First NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto."
+        title: "Quaerat",
+        description: "First NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto.",
+        price: 0.1,
+        sold: false
     },
     {
-        title: "Second NFT",
-        description: "Second NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse."
+        title: "cupiditate",
+        description: "Second NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse.",
+        price: 0.3,
+        sold: false
     },
     {
-        title: "Third NFT",
-        description: "Third NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi."
+        title: "Porro",
+        description: "Third NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi.",
+        price: 0.1,
+        sold: true
     },
     {
-        title: "Fourth NFT",
-        description: "Fourth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi quibusdam sit consequatur."
+        title: "nostrum",
+        description: "Fourth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi quibusdam sit consequatur.",
+        price: 0.2,
+        sold: false
     },
     {
-        title: "Fifth NFT",
-        description: "Fifth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum."
+        title: "architecto",
+        description: "Fifth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum.",
+        price: 0.5,
+        sold: true
     },
     {
-        title: "Sixth NFT",
-        description: "Sixth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto."
+        title: "delectus",
+        description: "Sixth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto.",
+        price: 0.1,
+        sold: false
     },
     {
-        title: "Seventh NFT",
-        description: "Seventh NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse."
+        title: "nostrum",
+        description: "Seventh NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse.",
+        price: 0.2,
+        sold: true
     },
     {
-        title: "Eighth NFT",
-        description: "Eighth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi."
+        title: "praesentium",
+        description: "Eighth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi.",
+        price: 0.1,
+        sold: false
     },
     {
-        title: "Ninth NFT",
-        description: "Ninth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi quibusdam sit consequatur."
+        title: "consectetur",
+        description: "Ninth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum porro aliquam? Placeat modi quibusdam sit consequatur.",
+        price: 0.5,
+        sold: true
     },
     {
-        title: "Tenth NFT",
-        description: "Tenth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum."
+        title: "laudantium",
+        description: "Tenth NFT lorem ipsum dolor sit amet consectetur adipisicing elit. Porro praesentium neque esse? Quaerat, ex cupiditate architecto atque laudantium delectus nostrum.",
+        price: 0.4,
+        sold: false
     }, 
 ];
 const observer = new IntersectionObserver((entries)=>{
     entries.forEach((entry)=>{
         if (entry.isIntersecting) {
             const index = parseInt(entry.target.classList[0], 10);
+            const price = sidebarContent[index - 1].price;
+            const sold = sidebarContent[index - 1].sold;
             title.innerHTML = sidebarContent[index - 1].title;
             const isDesktop = window.matchMedia("only screen and (min-width: 768px)").matches;
             if (isDesktop) content.innerHTML = sidebarContent[index - 1].description;
-            number.innerHTML = `${index} / ${sidebarContent.length}`;
+            // number.innerHTML = `${index} / ${sidebarContent.length}`;
+            priceElement.innerHTML = `${price} / ETH`;
+            buy.innerHTML = sold ? 'SOLD' : 'PURCHASE';
         }
     });
 }, {
     threshold: [
-        1
+        0.5
     ]
 });
 document.querySelectorAll(".image").forEach((img)=>{
@@ -524,15 +550,37 @@ document.querySelectorAll(".image").forEach((img)=>{
 });
 const element = document.querySelector("#horizontal-container");
 const images = document.querySelectorAll(".image");
+const menu = document.getElementById("menu");
+let isScrollingForward = false;
 element.addEventListener('wheel', (event)=>{
     event.preventDefault();
-    const both = event.deltaY + event.deltaX;
+    let scrollDelta = event.deltaY + event.deltaX;
+    // if (scrollDelta > 0) isScrollingForward = true
+    // else if (scrollDelta < 0) isScrollingForward = false
+    // if (!isScrollingForward) {
+    //   menu.style.height = "30px"
+    // }
     element.scrollBy({
-        left: both
+        left: scrollDelta
     });
-}); // width (411 is width of viewport) 
+});
+// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+let vh1 = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh1}px`);
+// We listen to the resize event
+window.addEventListener('resize', ()=>{
+    // We execute the same script as before
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+page('/about', function() {
+    console.log('steifejfeijf');
+});
+page.start() // width (411 is width of viewport) 
  // * 10 (10 images)
  // / 100 * 85 (each image is 85% of viewport)
+;
 
 },{}]},["1bEO8","lzYRN"], "lzYRN", "parcelRequirebd9c")
 

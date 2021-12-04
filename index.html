@@ -13,45 +13,50 @@
 	</head>
 	<body>
 		<div class="site-wrapper">
-		<!-- <nav> -->
-			<!-- <img class="logo" src="images/logo.svg" /> -->
-			<h1 class='text-logo'>BEG4CRED</h1>
-			<!-- <ul class="top-nav">
-				<li>wtf?</li>
-				<li>about</li>
-				<li>instagram</li>
-			</ul> -->
-		<!-- </nav> -->
-		<div id="horizontal-container">
-			<img class="1 image" src="images/collections/faces/2.jpg" />
-			<img class="2 image" src="images/collections/faces/3.jpg" />
-			<img class="3 image" src="images/collections/faces/4.jpg" />
-			<img class="4 image" src="images/collections/faces/5.jpg" />
-			<img class="5 image" src="images/collections/faces/2.jpg" />
-			<img class="6 image" src="images/collections/faces/3.jpg" />
-			<img class="7 image" src="images/collections/faces/4.jpg" />
-			<img class="8 image" src="images/collections/faces/5.jpg" />
-			<img class="9 image" src="images/collections/faces/2.jpg" />
-			<img class="10 image" src="images/collections/faces/3.jpg" />
-		  </div>
-		<div class="sidebar">
-			<div id="sidebar-wrapper" class="sidebar-wrapper">
-			  <h1 class="sidebar-title"></h1>
-			  <div class="sidebar-content-wrapper">
-				  <div class="nft-info">
-					  <p class="sidebar-content">PRICE: 2 ETH</p>
-					  <!-- <a class="link" href="">More info</a> -->
-				  </div>
-				<div class="sidebar-button-wrapper">
-					<a class="link" href="">Purchase NFT</a>
+			<h1 class="text-logo">BEG4<br /><span class="bottom-logo">CRED</span></h1>
+			<div class="menu-links">
+				<h1 class="menu-link">ABOUT</h1>
+				<h1 class="menu-link insta">INSTA</h1>
+				<h1 class="menu-link email">EMAIL</h1>
+			</div>
+			<div id="horizontal-container">
+				<div class="horizontal-wrapper">
+					<img class="1 image" src="images/collections/faces/3.jpg" />
+					<img class="2 image" src="images/collections/faces/2.jpg" />
+					<img class="3 image" src="images/collections/faces/4.jpg" />
+					<img class="4 image" src="images/collections/faces/5.jpg" />
+					<img class="5 image" src="images/collections/faces/2.jpg" />
+					<img class="6 image" src="images/collections/faces/3.jpg" />
+					<img class="7 image" src="images/collections/faces/4.jpg" />
+					<img class="8 image" src="images/collections/faces/5.jpg" />
+					<img class="9 image" src="images/collections/faces/2.jpg" />
+					<img class="10 image" src="images/collections/faces/3.jpg" />
 				</div>
 			</div>
-
-			  <p class="sidebar-index"></p>
-	  
+			<div class="sidebar-info-wrapper">
+				<h1 class="sidebar-title"></h1>
+				<h1 class="sidebar-price price"></h1>
 			</div>
-		  </div>
+			<div class="sidebar-content-wrapper">
+				<h1 class="sidebar-more">ABOUT</h1>
+				<h1 class="sidebar-buy"></h1>
+				<h1 class="sidebar-index"></h1>
+				<div class="nft-info">
+					<p class="sidebar-content"></p>
+				</div>
+			</div>
 		</div>
-		<script src="./app.js" type="module"></script>
+
+		<div class="product-page">
+			<p class="close-button">close</p>
+			<!-- <img class="nft-image" src="./images/collections/faces/1.jpg" alt="nft-product" /> -->
+			<h1 class="nft-title"></h1>
+			<p class='nft-price'></p>
+			<p class='nft-description'></p>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.11.6/page.js"></script>
+		<script src="./horizontal-scroll.js" type="module"></script>
+		<script src="./content.js" type="module"></script>
+		<script src="./routes.js" type="module"></script>
 	</body>
 </html>
